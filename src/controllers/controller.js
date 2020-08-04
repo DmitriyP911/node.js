@@ -1,30 +1,34 @@
-const users = require( '../db/contacts.json' );
-const { isEqual } = require( '../helpers/heplers' );
+const shortid = require('shortid');
+const users = require('../db/contacts.json');
+const {isEqual} = require('../helpers/heplers');
 
 const user = {
-    get: (data) => { 
-        const { id } = data.params;
+    get: (data) => {
+        const {id} = data.params;
 
-        const user = users.find( user => isEqual(user.id, parseInt(id)) );
+        const user = users.find(user => isEqual(user.id, parseInt(id)));
 
-        if( !user ) {
-            throw {status: 404, message: 'User not found'}
+        if (! user) {
+            throw {
+                status : 404,
+                message : 'User not found'
+            }
         }
 
         return user
     },
-    getAll: () => { 
-        throw { status: 400, message: 'bad error'};
+    getAll: () => {
+        return users;
     },
-    create: () => {
+    create: (data) => {
+        const {id, name, email, phone} = data;
 
-     },
-    update: () => { 
+        users.push({id, name, email, phone});
 
+        return {id, name, email, phone}
     },
-    delete: () => {
-
-    }
+    update: () => {},
+    delete: () => {}
 }
 
 module.exports = user
