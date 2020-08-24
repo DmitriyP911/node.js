@@ -3,10 +3,10 @@ const morgan = require( "morgan" );
 const cors = require( "cors" );
 const dotenv = require( "dotenv" );
 const bodyParser = require( "body-parser" );
-const contactsRouter = require( "./routers/userRouter" );
+const contactsRouter = require( "./routes/contactsRouter" );
 const connectMongoDB = require( "./db/connectionMongo" );
 
-dotenv.config();
+dotenv.config( __dirname + `.env` );
 
 const server = async ( port, callback ) => {
 
