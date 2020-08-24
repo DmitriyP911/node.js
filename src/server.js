@@ -6,7 +6,7 @@ const bodyParser = require( "body-parser" );
 const contactsRouter = require( "./routes/contactsRouter" );
 const connectMongoDB = require( "./db/connectionMongo" );
 
-dotenv.config( __dirname + `.env` );
+dotenv.config( { path: __dirname + "/../.env" } );
 
 const server = async ( port, callback ) => {
 
