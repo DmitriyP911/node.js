@@ -1,7 +1,9 @@
-const server = require( './index' );
+const server = require( './server.js' );
 
-server.listen( process.env.PORT, ( err ) => {
-    if( err ) return console.log( err );
-
-    console.log(`Server configured on port ${process.env.PORT} `)
-})
+server( process.env.PORT, err => {
+    if( err ) {
+        console.log( 'Error on listen :', err );
+        process.exit( 0 );
+    }
+    console.log( `App configured on port ${process.env.PORT}` );
+} );

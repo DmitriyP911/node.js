@@ -1,16 +1,16 @@
 const { Router } = require( 'express' );
 
-const controller = require( '../controllers/controller' );
+const contactsController = require( '../controllers/contactsController' );
 
 const { makeCall } = require( '../helpers/heplers' );
 
-const userRouter = Router();
+const contactsRouter = Router();
 
-userRouter.get( '/get', ( res, req ) => makeCall( res, req, controller.listContacts ) );
-userRouter.get( '/get/:id', ( res, req ) => makeCall( res, req, controller.getById ) );
-userRouter.post( '/create', ( res, req ) => makeCall( res, req, controller.addContact ) );
-userRouter.patch( '/update/:id', ( res, req ) => makeCall( res, req, controller.updateContact ) );
-userRouter.delete( '/delete/:id', ( res, req ) => makeCall( res, req, controller.delete ) );
+contactsRouter.get( '/get', ( res, req ) => makeCall( res, req, contactsController.listContacts ) );
+contactsRouter.get( '/get/:id', ( res, req ) => makeCall( res, req, contactsController.getById ) );
+contactsRouter.post( '/create', ( res, req ) => makeCall( res, req, contactsController.addContact ) );
+contactsRouter.patch( '/update/:id', ( res, req ) => makeCall( res, req, contactsController.updateContact ) );
+contactsRouter.delete( '/delete/:id', ( res, req ) => makeCall( res, req, contactsController.delete ) );
 
 
-module.exports = userRouter;
+module.exports = contactsRouter;
