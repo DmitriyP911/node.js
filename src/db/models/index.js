@@ -1,5 +1,7 @@
-const contactModel = require( './contactModel' )
+const contactModel = require( './contactModel' );
+const userModel = require( './userModel' );
 
 module.exports = {
-    contactModel
+    contactModel,
+    userModel
 }
