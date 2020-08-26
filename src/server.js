@@ -5,6 +5,7 @@ const dotenv = require( "dotenv" );
 const bodyParser = require( "body-parser" );
 const contactsRouter = require( "./routes/contactsRouter" );
 const connectMongoDB = require( "./db/connectionMongo" );
+const contactModel = require( "./db/models/contactModel" );
 
 dotenv.config( { path: __dirname + "/../.env" } );
 

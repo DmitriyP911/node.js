@@ -1,3 +1,5 @@
+const mongoose = require( "mongoose" );
+
 const contactsController = {
     get: async ( { params: { id } }, { mongoDb: { contactModel } } ) => {
         try {
@@ -24,7 +26,17 @@ const contactsController = {
 
     create: async ( data, { mongoDb: { contactModel } } ) => {
         try {
-            const contact = await contactModel.create( data );
+            const { name, email, phone, subscription, password, token = "" } = data;
+
+            const contact = await contactModel.create( {
+                _id: mongoose.Types.ObjectId(),
+                name,
+                email,
+                phone,
+                subscription,
+                password,
+                token,
+            } );
 
             return { status: 201, payload: contact };
         } catch( e ) {

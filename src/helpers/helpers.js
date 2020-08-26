@@ -4,13 +4,13 @@ const makeCall = async ( req, res, func ) => {
         data.params = req.params;
 
         const result = await func( data, { mongoDb: req.mongoDb } );
-        const { status, payload } = result;
-
-        res.status( status ).send( payload );
+        const { status, ...request } = result;
+        res.status( status ).send( request );
     } catch( err ) {
         console.log( err );
-        const { status, message } = err;
-        res.status( status ).send( message );
+        const { status = 500, message = "Bad request" } = err;
+        res.status( status );
+        res.send( message );
     }
 };
 

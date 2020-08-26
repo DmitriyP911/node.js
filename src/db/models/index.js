@@ -1,3 +1,3 @@
 const contactModel = require( './contactModel' )
 
-module.exports = contactModel;
+module.exports = { contactModel };
