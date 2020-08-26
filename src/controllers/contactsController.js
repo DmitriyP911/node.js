@@ -1,5 +1,7 @@
+const mongoose = require( "mongoose" );
+
 const contactsController = {
-    get: async ( { params: { id } }, { mongoDB: { contactModel } } ) => {
+    get: async ( { params: { id } }, { mongoDb: { contactModel } } ) => {
         try {
             const contact = await contactModel.findById( id );
 
@@ -10,9 +12,9 @@ const contactsController = {
         }
     },
 
-    getAll: async ( _, { mongoDB } ) => {
+    getAll: async ( _, { mongoDb } ) => {
         try {
-            const { contactModel } = mongoDB;
+            const { contactModel } = mongoDb;
 
             const contacts = await contactModel.find();
 
@@ -22,9 +24,19 @@ const contactsController = {
         }
     },
 
-    create: async ( data, { mongoDB: { contactModel } } ) => {
+    create: async ( data, { mongoDb: { contactModel } } ) => {
         try {
-            const contact = await contactModel.create( data );
+            const { name, email, phone, subscription, password, token = "" } = data;
+
+            const contact = await contactModel.create( {
+                _id: mongoose.Types.ObjectId(),
+                name,
+                email,
+                phone,
+                subscription,
+                password,
+                token,
+            } );
 
             return { status: 201, payload: contact };
         } catch( e ) {
@@ -32,7 +44,7 @@ const contactsController = {
         }
     },
 
-    update: async ( data, { mongoDB: { contactModel } } ) => {
+    update: async ( data, { mongoDb: { contactModel } } ) => {
         try {
             const { params: { id: _id }, ...body } = data;
 
@@ -47,7 +59,7 @@ const contactsController = {
         }
     },
 
-    delete: async ( { params: { id: _id } }, { mongoDB: { contactModel } } ) => {
+    delete: async ( { params: { id: _id } }, { mongoDb: { contactModel } } ) => {
         try {
             await contactModel.deleteOne( { _id } );
 
