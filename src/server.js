@@ -26,7 +26,7 @@ const server = async ( port, callback ) => {
             next();
         } );
 
-        app.use( "/api", contactsRouter );
+        app.use( "/contacts", contactsRouter );
 
         app.listen( port, callback );
     } catch( e ) {
