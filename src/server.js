@@ -22,7 +22,7 @@ const server = async ( port, callback ) => {
         app.use( bodyParser.json() );
 
         app.use( ( req, res, next ) => {
-            req.mongoDB = schemas;
+            req.mongoDb = schemas;
             next();
         } );
 
