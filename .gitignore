@@ -4,6 +4,8 @@ node_modules
 .pnp.js
 .idea/
 .netlify/
+
+# Dependency directories
 node_modules/
 jspm_packages/
 
