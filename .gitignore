@@ -1,13 +1,9 @@
 # dependencies
-node_modules
+/node_modules
 /.pnp
 .pnp.js
 .idea/
 .netlify/
-
-# Dependency directories
-node_modules/
-jspm_packages/
 
 # testing
 /coverage
