@@ -6,8 +6,15 @@ const { Schema } = mongoose;
 const { HOST, JWT_SECRET_TOKEN } = process.env;
 
 const userSchema = new Schema( {
-    login: mongoose.Schema.Types.String,
-    password: mongoose.Schema.Types.String,
+    email: {
+        type: Schema.Types.String,
+        validate: {
+            validator: ( email ) => email.indexOf( "@" ) > -1,
+            message: "Invalid email format",
+        },
+    },
+    password: Schema.Types.String,
+    verificationToken: { type: Schema.Types.String, default: null },
     avatarURL: {
         type: Schema.Types.String,
         default: `${HOST}/images/base_avatar.jpg`,
@@ -17,23 +24,12 @@ const userSchema = new Schema( {
         enum: ["free", "pro", "premium"],
         default: "free",
     },
-    token: {
-        type: mongoose.Schema.Types.String,
-        default: null,
-    },
-    tasks: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'task',
-    }],
-    created: {
-        type: Date,
-        default: Date.now
-    }
+    token: { type: Schema.Types.String, default: null },
 } );
 
-userSchema.pre( 'save', async function ( next ) {
+userSchema.pre( "save", async function ( next ) {
     const user = this;
-    if( !user.isModified( 'password' ) ) return next();
+    if( !user.isModified( "password" ) ) return next();
     const salt = await bcrypt.genSalt( 3 );
     user.password = await bcrypt.hash( user.password, salt );
     next();
